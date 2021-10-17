@@ -5,6 +5,6 @@ export const fetchQuestionAction = createAsyncThunk(
   'question/getAll',
   async () => {
     const response = await fetchQuestions()
-    return response
+    return response.json()
   }
 )

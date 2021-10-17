@@ -15,9 +15,14 @@ const questionReducer = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchQuestionAction.pending, (state) => {
-      state.loading = true
-    })
+    builder
+      .addCase(fetchQuestionAction.pending, (state) => {
+        state.loading = true
+      })
+      .addCase(fetchQuestionAction.fulfilled, (state, action) => {
+        console.log(action.payload)
+        state.loading = false
+      })
   },
 })
 
