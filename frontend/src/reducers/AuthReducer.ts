@@ -29,6 +29,6 @@ const authReducer = createSlice({
   },
 })
 
-export const actionsAuth = authReducer.actions
+// export const actionsAuth = authReducer.actions
 
 export default authReducer.reducer as Reducer<typeof initialState>
