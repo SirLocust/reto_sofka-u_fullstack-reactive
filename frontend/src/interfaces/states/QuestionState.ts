@@ -4,6 +4,6 @@ export default interface QuestionState {
   loading: boolean
   hasErrors: boolean
   questions: Question[]
-  question: Question
+  question: Question | null
   redirect: string | null
 }

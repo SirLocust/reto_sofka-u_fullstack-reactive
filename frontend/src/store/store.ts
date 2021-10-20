@@ -1,7 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import authReducer from '../reducers/AuthReducer'
 import questionReducer from '../reducers/QuestionReducer'
-import thunk from 'redux-thunk'
+import thunk, { ThunkAction } from 'redux-thunk'
+
+declare module 'redux' {
+  interface Dispatch<A extends Action = AnyAction> {
+    <S, E, R>(asyncAction: ThunkAction<R, S, E, A>): R
+  }
+}
 
 export const store = configureStore({
   reducer: {

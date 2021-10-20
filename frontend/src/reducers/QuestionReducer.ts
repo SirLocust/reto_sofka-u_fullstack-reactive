@@ -6,7 +6,7 @@ export const initialState: QuestionState = {
   loading: true,
   hasErrors: false,
   questions: [],
-  question: {},
+  question: null,
   redirect: null,
 }
 
@@ -26,4 +26,5 @@ const questionReducer = createSlice({
   },
 })
 
+export const reducer: Reducer<typeof initialState> = questionReducer.reducer
 export default questionReducer.reducer as Reducer<typeof initialState>

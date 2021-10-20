@@ -2,15 +2,16 @@ import React, { useEffect } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { RouteComponentProps } from 'react-router-dom'
 import Page from '../interfaces/models/Page'
-import { AppDispatch, RootState } from '../store/store'
+
+import { RootState } from '../store/store'
 import { fetchQuestionAction } from '../thunkActions/questionsThunk'
 
 export const QuestionPage: React.FC<
   Page & RouteComponentProps<any> & PropsFromRedux
 > = (props) => {
   useEffect(() => {
-    props.dispatch<any>(fetchQuestionAction())
-  }, [props.dispatch])
+    props.dispatch(fetchQuestionAction())
+  }, [props, props.dispatch])
   return (
     <section>
       <h1>Questions</h1>
