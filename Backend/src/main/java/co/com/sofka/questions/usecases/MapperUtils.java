@@ -1,8 +1,10 @@
 package co.com.sofka.questions.usecases;
 
 import co.com.sofka.questions.collections.Answer;
+import co.com.sofka.questions.collections.LikeFace;
 import co.com.sofka.questions.collections.Question;
 import co.com.sofka.questions.model.AnswerDTO;
+import co.com.sofka.questions.model.LikeFaceDTO;
 import co.com.sofka.questions.model.QuestionDTO;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +21,17 @@ public class MapperUtils {
             answer.setUserId(updateAnswer.getUserId());
             answer.setAnswer(updateAnswer.getAnswer());
             return answer;
+        };
+    }
+
+    public Function<LikeFaceDTO, LikeFace> mapperToLikeFace() {
+        return updateLikeFace -> {
+            var likeFace = new LikeFace();
+
+            likeFace.setQuestionId(updateLikeFace.getQuestionId());
+            likeFace.setUserId(updateLikeFace.getUserId());
+            likeFace.setState(updateLikeFace.getState());
+            return likeFace;
         };
     }
 
@@ -50,6 +63,14 @@ public class MapperUtils {
                 entity.getId(),
                 entity.getUserId(),
                 entity.getAnswer()
+        );
+    }
+    public Function<LikeFace, LikeFaceDTO> mapEntityToLikeFace() {
+        return entity -> new LikeFaceDTO(
+                entity.getId(),
+                entity.getUserId(),
+                entity.getQuestionId(),
+                entity.getState()
         );
     }
 }

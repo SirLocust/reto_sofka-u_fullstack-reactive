@@ -1,12 +1,15 @@
 package co.com.sofka.questions.model;
 
 
-import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
+
+import co.com.sofka.questions.enums.StateLikeFace;
+import lombok.Data;
+
+import javax.validation.constraints.NotBlank;
+import java.util.*;
+
+@Data
 public class QuestionDTO {
     private String id;
     @NotBlank
@@ -18,6 +21,8 @@ public class QuestionDTO {
     @NotBlank
     private String category;
     private List<AnswerDTO> answers;
+    private List<LikeFaceDTO> likesFace;
+    private Map<StateLikeFace , Integer> calification;
 
 
     public QuestionDTO() {
@@ -43,10 +48,30 @@ public class QuestionDTO {
         this.answers = Optional.ofNullable(answers).orElse(new ArrayList<>());
         return answers;
     }
+    public Map<StateLikeFace , Integer> getCalification(){
+        this.calification = Optional.ofNullable(this.calification).orElse(createDefaulCalification());
+        return   this.calification;
+    }
+
+    private Map<StateLikeFace , Integer> createDefaulCalification(){
+        var calificationTmp = new HashMap<StateLikeFace,Integer>();
+        calificationTmp.put(StateLikeFace.HAPPY,0);
+        calificationTmp.put(StateLikeFace.SATISFIED,0);
+        calificationTmp.put(StateLikeFace.UNHAPPY,0);
+        return  calificationTmp;
+    }
+    public List<LikeFaceDTO> getLikesFace() {
+        this.likesFace = Optional.ofNullable(likesFace).orElse(new ArrayList<>());
+        return likesFace;
+    }
 
     public void setAnswers(List<AnswerDTO> answers) {
         this.answers = answers;
     }
+    public void setLikesFace(List<LikeFaceDTO> likesFace) {
+        this.likesFace = likesFace;
+    }
+
 
     public String getId() {
         return id;

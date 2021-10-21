@@ -1,11 +1,13 @@
 package co.com.sofka.questions.routers;
 
 import co.com.sofka.questions.model.AnswerDTO;
+import co.com.sofka.questions.model.LikeFaceDTO;
 import co.com.sofka.questions.model.QuestionDTO;
 import co.com.sofka.questions.usecases.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.BodyExtractors;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -70,8 +72,20 @@ public class QuestionRouter {
     @Bean
     public RouterFunction<ServerResponse> addAnswer(AddAnswerUseCase addAnswerUseCase) {
         return route(POST("/add").and(accept(MediaType.APPLICATION_JSON)),
-                request -> request.bodyToMono(AnswerDTO.class)
+                request -> request.
+                bodyToMono(AnswerDTO.class)
                         .flatMap(addAnswerDTO -> addAnswerUseCase.apply(addAnswerDTO)
+                                .flatMap(result -> ServerResponse.ok()
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .bodyValue(result))
+                        )
+        );
+    }
+    @Bean
+    public RouterFunction<ServerResponse> addLikeState(AddLikeFaceUseCase addLikeFaceUseCase) {
+        return route(POST("/add/like").and(accept(MediaType.APPLICATION_JSON)),
+                request -> request.bodyToMono(LikeFaceDTO.class)
+                        .flatMap(addAnswerDTO -> addLikeFaceUseCase.apply(addAnswerDTO)
                                 .flatMap(result -> ServerResponse.ok()
                                         .contentType(MediaType.APPLICATION_JSON)
                                         .bodyValue(result))
