@@ -7,12 +7,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @Document
-public class LikeFace {
+public class PositionAnswer {
 
   @Id
   private String id;
   private String userId;
   private String questionId;
-  private StateLikeFace state;
-
+  private String answerId;
+  private Integer value;
 }

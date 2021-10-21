@@ -1,4 +1,4 @@
-package co.com.sofka.questions.usecases;
+package co.com.sofka.questions.usecases.likeFace;
 
 
 import co.com.sofka.questions.model.LikeFaceDTO;

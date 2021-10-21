@@ -1,11 +1,16 @@
 package co.com.sofka.questions.model;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 import java.util.Optional;
-
+@Data
+@AllArgsConstructor
 public class AnswerDTO {
+    private String id;
     @NotBlank(message = "Debe existir el userId para este objeto")
     private String userId;
     @NotBlank

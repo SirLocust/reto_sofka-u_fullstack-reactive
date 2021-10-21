@@ -1,11 +1,16 @@
-package co.com.sofka.questions.usecases;
+package co.com.sofka.questions.usecases.question;
 
+import co.com.sofka.questions.collections.Answer;
+import co.com.sofka.questions.collections.PositionAnswer;
+import co.com.sofka.questions.model.AnswerDTO;
 import co.com.sofka.questions.model.QuestionDTO;
 import co.com.sofka.questions.reposioties.AnswerRepository;
 import co.com.sofka.questions.reposioties.LikeFaceRepository;
+import co.com.sofka.questions.reposioties.PositionAnswerRepository;
 import co.com.sofka.questions.reposioties.QuestionRepository;
 
 
+import co.com.sofka.questions.usecases.MapperUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -27,12 +32,14 @@ public class GetUseCase implements Function<String, Mono<QuestionDTO>> {
     private final AnswerRepository answerRepository;
     private final MapperUtils mapperUtils;
   private final LikeFaceRepository likeFaceRepository;
+  private final PositionAnswerRepository positionAnswerRepository;
 
-  public GetUseCase(MapperUtils mapperUtils, QuestionRepository questionRepository, AnswerRepository answerRepository , LikeFaceRepository likeFaceRepository) {
+  public GetUseCase(MapperUtils mapperUtils, QuestionRepository questionRepository, AnswerRepository answerRepository , LikeFaceRepository likeFaceRepository , PositionAnswerRepository positionAnswerRepository) {
         this.questionRepository = questionRepository;
         this.answerRepository = answerRepository;
         this.mapperUtils = mapperUtils;
     this.likeFaceRepository = likeFaceRepository;
+    this.positionAnswerRepository = positionAnswerRepository;
   }
 
     @Override
@@ -50,10 +57,12 @@ public class GetUseCase implements Function<String, Mono<QuestionDTO>> {
         return questionDTO ->
                 Mono.just(questionDTO).zipWith(
                         answerRepository.findAllByQuestionId(questionDTO.getId())
+                                .flatMap(data -> mapQuestionAggregatePositions().apply(data))
                                 .map(mapperUtils.mapEntityToAnswer())
-//                                .map(a -> { })
+
                                 .collectList(),
                         (question, answers) -> {
+
                             question.setAnswers(answers);
                             return question;
                         }
@@ -90,5 +99,22 @@ public class GetUseCase implements Function<String, Mono<QuestionDTO>> {
             );
 
   }
+
+  private Function<Answer, Mono<Answer>> mapQuestionAggregatePositions() {
+    return answer ->  Mono.just(answer).zipWith( positionAnswerRepository.findAllByAnswerId(answer.getId()).collectList() , (answer1 , positionAnswer) -> {
+                      logger.info(Arrays.toString(positionAnswer.toArray()));
+                      var newValue = positionAnswer.stream().mapToInt(data -> {
+                        logger.info(data.toString());
+                        return  data.getValue();
+                      }).sum();
+                        logger.info(String.valueOf(newValue));
+                        answer1.setPosition(newValue);
+                        return  answer1;
+                      });
+
+
+
+  }
+
 
 }

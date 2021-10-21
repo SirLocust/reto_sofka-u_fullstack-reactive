@@ -16,6 +16,7 @@ public class MapperUtils {
     public Function<AnswerDTO, Answer> mapperToAnswer() {
         return updateAnswer -> {
             var answer = new Answer();
+            answer.setId(updateAnswer.getId());
             answer.setPosition(updateAnswer.getPosition());
             answer.setQuestionId(updateAnswer.getQuestionId());
             answer.setUserId(updateAnswer.getUserId());
@@ -24,10 +25,10 @@ public class MapperUtils {
         };
     }
 
-    public Function<LikeFaceDTO, LikeFace> mapperToLikeFace() {
+    public Function<LikeFaceDTO, LikeFace> mapperToLikeFace(String id) {
         return updateLikeFace -> {
             var likeFace = new LikeFace();
-
+            likeFace.setId(id);
             likeFace.setQuestionId(updateLikeFace.getQuestionId());
             likeFace.setUserId(updateLikeFace.getUserId());
             likeFace.setState(updateLikeFace.getState());
@@ -60,9 +61,12 @@ public class MapperUtils {
 
     public Function<Answer, AnswerDTO> mapEntityToAnswer() {
         return entity -> new AnswerDTO(
+
                 entity.getId(),
                 entity.getUserId(),
-                entity.getAnswer()
+                entity.getQuestionId(),
+                entity.getAnswer(),
+                entity.getPosition()
         );
     }
     public Function<LikeFace, LikeFaceDTO> mapEntityToLikeFace() {

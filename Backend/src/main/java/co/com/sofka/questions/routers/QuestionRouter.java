@@ -1,13 +1,17 @@
 package co.com.sofka.questions.routers;
 
+import co.com.sofka.questions.collections.PositionAnswer;
 import co.com.sofka.questions.model.AnswerDTO;
 import co.com.sofka.questions.model.LikeFaceDTO;
 import co.com.sofka.questions.model.QuestionDTO;
-import co.com.sofka.questions.usecases.*;
+import co.com.sofka.questions.usecases.AddLikeFaceUseCase;
+import co.com.sofka.questions.usecases.answer.AddAnswerUseCase;
+
+import co.com.sofka.questions.usecases.likeFace.AddPositionAnswerUseCase;
+import co.com.sofka.questions.usecases.question.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
-import org.springframework.web.reactive.function.BodyExtractors;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -86,6 +90,17 @@ public class QuestionRouter {
         return route(POST("/add/like").and(accept(MediaType.APPLICATION_JSON)),
                 request -> request.bodyToMono(LikeFaceDTO.class)
                         .flatMap(addAnswerDTO -> addLikeFaceUseCase.apply(addAnswerDTO)
+                                .flatMap(result -> ServerResponse.ok()
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .bodyValue(result))
+                        )
+        );
+    }
+    @Bean
+    public RouterFunction<ServerResponse> addPositionAnswer(AddPositionAnswerUseCase positionAnswerUseCase) {
+        return route(POST("/add/position").and(accept(MediaType.APPLICATION_JSON)),
+                request -> request.bodyToMono(PositionAnswer.class)
+                        .flatMap(addAnswerDTO -> positionAnswerUseCase.apply(addAnswerDTO)
                                 .flatMap(result -> ServerResponse.ok()
                                         .contentType(MediaType.APPLICATION_JSON)
                                         .bodyValue(result))
