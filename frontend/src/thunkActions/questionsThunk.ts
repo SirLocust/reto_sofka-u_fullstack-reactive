@@ -3,6 +3,7 @@ import {
   fetchDeleteQuestion,
   fetchOwnerQuestions,
   fetchPostAnswer,
+  fetchPostLikeFace,
   fetchPostQuestion,
   fetchQuestion,
   fetchQuestions,
@@ -10,6 +11,7 @@ import {
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import Question from '../interfaces/models/Questions'
 import Answer from '../interfaces/models/Answer'
+import { SendLikeFace } from '../interfaces/models/SendLikeFace'
 
 export const fetchQuestionsAction = createAsyncThunk(
   'question/getAll',
@@ -41,6 +43,21 @@ export const fetchPostAnswerAction = createAsyncThunk(
     return response.json() as unknown as Question
   }
 )
+export const fetchPostLikeFaceAction = createAsyncThunk(
+  'question/add',
+  async (sendLikeFace: SendLikeFace) => {
+    const response = await fetchPostLikeFace(sendLikeFace)
+    return response.json() as unknown as Question
+  }
+)
+export const fetchPostPositionAnswerAction = createAsyncThunk(
+  'question/add',
+  async (sendPositionAnswer: SendPositionAnswer) => {
+    const response = await fetchPostLikeFace(sendPositionAnswer)
+    return response.json() as unknown as Question
+  }
+)
+
 export const fetchPostQuestionAction = createAsyncThunk(
   'question/create',
   async (question: Partial<Question>) => {

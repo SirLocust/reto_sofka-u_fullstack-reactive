@@ -8,7 +8,7 @@ const AnswerComponent: React.FC<AppProps> = ({ answer, userId }) => {
   return (
     <aside className="answer">
       <p>{answer.answer}</p>
-
+      <div>{answer.position}</div>
       <DeleteButton
         idData={answer.id}
         typeDisptach={fetchDeleteAnswerAction}

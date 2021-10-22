@@ -1,18 +1,37 @@
 import React from 'react'
 import { connect, ConnectedProps } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { RootState } from '../../store/store'
-import { LoginButtos } from '../Login/LoginButtos'
+import { TypeCalification } from '../../enums/TypeCalification'
+import { SendLikeFace } from '../../interfaces/models/SendLikeFace'
 
-export const CalificationButton: React.FC<PropsFromRedux> = ({
+import { RootState } from '../../store/store'
+import { fetchPostLikeFaceAction } from '../../thunkActions/questionsThunk'
+
+const CalificationButton: React.FC<PropsFromRedux> = ({
   calification,
+  dispatch,
+  userId,
+  questionId,
 }) => {
-  console.log(calification)
+  const handlerPostLike = (type: TypeCalification) => {
+    const newSendLikeFace: SendLikeFace = {
+      userId: userId || '',
+      questionId: questionId || '',
+      state: type,
+    }
+    dispatch(fetchPostLikeFaceAction(newSendLikeFace))
+  }
   return (
     <div className="flex_center_row">
       <div className="flex_center_row">
         <div>
-          <span role="img" aria-label="HAPPY">
+          <span
+            role="img"
+            aria-label="HAPPY"
+            onClick={() => {
+              handlerPostLike(TypeCalification.HAPPY)
+            }}
+            aria-hidden="true"
+          >
             {' '}
             😊
           </span>
@@ -21,7 +40,14 @@ export const CalificationButton: React.FC<PropsFromRedux> = ({
       </div>
       <div className="flex_center_row">
         <div>
-          <span role="img" aria-label="HAPPY">
+          <span
+            role="img"
+            aria-label="SATISFIED"
+            onClick={() => {
+              handlerPostLike(TypeCalification.SATISFIED)
+            }}
+            aria-hidden="true"
+          >
             {' '}
             😊
           </span>
@@ -30,7 +56,14 @@ export const CalificationButton: React.FC<PropsFromRedux> = ({
       </div>
       <div className="flex_center_row">
         <div>
-          <span role="img" aria-label="HAPPY">
+          <span
+            role="img"
+            aria-label="UNHAPPY"
+            onClick={() => {
+              handlerPostLike(TypeCalification.UNHAPPY)
+            }}
+            aria-hidden="true"
+          >
             {' '}
             😊
           </span>
@@ -42,7 +75,8 @@ export const CalificationButton: React.FC<PropsFromRedux> = ({
 }
 
 const mapStateToProps = (state: RootState) => ({
-  user: state.authReducer,
+  userId: state.authReducer.uid,
+  questionId: state.questionReducer.question?.id,
   calification: state.questionReducer.question?.calification,
 })
 

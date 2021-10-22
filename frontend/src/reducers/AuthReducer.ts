@@ -14,15 +14,11 @@ const authReducer = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loginWhitGoogle.fulfilled, (state, action) => {
-        console.log(action)
         state.email = action.payload.email
         state.uid = action.payload.uid
       })
-      .addCase(loginWhitGoogle.rejected, (state, action) => {
-        console.log(action)
-      })
+      .addCase(loginWhitGoogle.rejected, (state, action) => {})
       .addCase(signOut.fulfilled, (state, action) => {
-        console.log(action, 'sss')
         state.email = initialState.email
         state.uid = initialState.uid
       })

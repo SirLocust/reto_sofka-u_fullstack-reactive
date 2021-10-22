@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { Link, RouteComponentProps } from 'react-router-dom'
 import AnswerComponent from '../components/Answer/AnswerComponent'
-import { CalificationButton } from '../components/CalificationButton/CalificatioButton'
+import CalificatioButton from '../components/CalificationButton/CalificatioButton'
 
 import QuestionComponent from '../components/Question/Question'
 import Page from '../interfaces/models/Page'
@@ -17,7 +17,7 @@ export const SingleQuestionPage: React.FC<
     dispatch(fetchQuestionAction(id))
   }, [])
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  console.log(question?.calification)
+  console.log(question)
   return (
     // <section>
     //   <h1>Questions</h1>
@@ -37,7 +37,7 @@ export const SingleQuestionPage: React.FC<
           Reply
         </Link>
       )}
-      <div>{question && <CalificationButton />}</div>
+      <div>{question && <CalificatioButton />}</div>
       <div>
         {question && question.answers && question.answers.length ? (
           question.answers.map((answer) => (

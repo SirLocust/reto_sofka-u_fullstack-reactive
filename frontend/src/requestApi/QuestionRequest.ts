@@ -1,5 +1,7 @@
+import { SendLikeFace } from './../interfaces/models/SendLikeFace'
 import Answer from '../interfaces/models/Answer'
 import Question from '../interfaces/models/Questions'
+import { SendPositionAnswer } from '../interfaces/models/SendPositionAnswer'
 
 const URL_BASE = 'http://localhost:8081'
 export const fetchQuestions = (): Promise<Response> => {
@@ -53,5 +55,31 @@ export const fetchPostQuestion = (
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(question),
+  })
+}
+
+export const fetchPostLikeFace = (
+  sendLikeFace: SendLikeFace
+): Promise<Response> => {
+  return fetch(`${URL_BASE}/add/like`, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(sendLikeFace),
+  })
+}
+
+export const fetchPostPositionAnswer = (
+  sendPositionAnswer: SendPositionAnswer
+): Promise<Response> => {
+  return fetch(`${URL_BASE}/add/position`, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(sendPositionAnswer),
   })
 }
