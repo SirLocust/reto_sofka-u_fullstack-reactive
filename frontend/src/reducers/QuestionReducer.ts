@@ -4,6 +4,7 @@ import {
   fetchOwnerQuestionsAction,
   fetchPostAnswerAction,
   fetchPostLikeFaceAction,
+  fetchPostPositionAnswerAction,
   fetchPostQuestionAction,
 } from './../thunkActions/questionsThunk'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
@@ -63,6 +64,9 @@ const questionReducer = createSlice({
         }
       })
       .addCase(fetchPostLikeFaceAction.fulfilled, (state, action) => {
+        state.question = action.payload
+      })
+      .addCase(fetchPostPositionAnswerAction.fulfilled, (state, action) => {
         state.question = action.payload
       })
   },
