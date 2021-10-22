@@ -26,13 +26,18 @@ export const OwnerQuestionPage: React.FC<
     //     <p>Unable to display questions.</p>
     //   ) : (
     <div>
-      {questions.map((question) => (
-        <QuestionComponent
-          key={question.id}
-          question={question}
-          isOwnerQuestion={true}
-        />
-      ))}
+      {questions.map((question) => {
+        if (question.userId !== userId) {
+          return <></>
+        }
+        return (
+          <QuestionComponent
+            key={question.id}
+            question={question}
+            isOwnerQuestion={true}
+          />
+        )
+      })}
     </div>
 
     //   )}

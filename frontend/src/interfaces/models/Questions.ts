@@ -1,4 +1,5 @@
 import Answer from './Answer'
+import Calification from './Calification'
 
 export default interface Question {
   id: string
@@ -7,5 +8,5 @@ export default interface Question {
   answers: Answer[]
   category: string
   type: string
-  califaction: any
+  calification: Calification
 }

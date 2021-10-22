@@ -29,7 +29,7 @@ export const QuestionFormPage: React.FC<
       .then(unwrapResult)
       .then((answerrId) => {
         console.log(answerrId)
-        history.push(`/question/${answerrId}`)
+        history.push(`/question/${answerrId.id}`)
       })
   }
   return (

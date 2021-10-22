@@ -20,10 +20,20 @@ export const fetchDeleteQuestion = (id: string): Promise<Response> => {
   })
 }
 
+export const fetchDeleteAnswer = (id: string): Promise<Response> => {
+  return fetch(`${URL_BASE}/delete/answer/${id}`, {
+    method: 'DELETE',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+}
+
 export const fetchOwnerQuestions = (id: string): Promise<Response> => {
   return fetch(`${URL_BASE}/getOwnerAll/${id}`)
 }
-export const fetchPostAnswer = (answer: Answer): Promise<Response> => {
+export const fetchPostAnswer = (answer: Partial<Answer>): Promise<Response> => {
   return fetch(`${URL_BASE}/add`, {
     method: 'POST',
     mode: 'cors',

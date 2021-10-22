@@ -22,7 +22,7 @@ export const QuestionPage: React.FC<
     //   ) : props.hasError ? (
     //     <p>Unable to display questions.</p>
     //   ) : (
-    <div>
+    <div className="container flex_center">
       {props.questions.map((question) => (
         <QuestionComponent
           key={question.id}

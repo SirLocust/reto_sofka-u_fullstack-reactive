@@ -9,23 +9,51 @@ const QuestionComponent: React.FC<AppProps> = ({
   isOwnerQuestion,
 }) => {
   return (
-    <article className={'question'}>
-      <h2>{question.question}</h2>
-      <p>
-        {question.category} - <small>{question.type}</small>
-      </p>
-      {isOwnerQuestion && (
-        <div>
-          <DeleteButton
-            idData={question.id}
-            typeDisptach={fetchDeleteQuestionAction}
-          />
+    <div className="courses-container">
+      <div className="course">
+        <div className="course-preview">
+          <h6>Categoria</h6>
+          <h2> {question.category}</h2>
         </div>
-      )}
-      <Link to={`/question/${question.id}`} className="button">
-        View Question
-      </Link>
-    </article>
+        <div className="course-info">
+          <h6>{question.type}</h6>
+          <h2>{question.question}</h2>
+          <Link to={`/question/${question.id}`} className="btn">
+            View Question
+          </Link>
+        </div>
+
+        {isOwnerQuestion && (
+          <div className="course-info">
+            <div>
+              {/* //{' '} */}
+              <DeleteButton
+                idData={question.id}
+                typeDisptach={fetchDeleteQuestionAction}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+
+    // <article className={'question'}>
+    //   <h2>{question.question}</h2>
+    //   <p>
+    //     {question.category} - <small>{question.type}</small>
+    //   </p>
+    //   {isOwnerQuestion && (
+    //     <div>
+    //       <DeleteButton
+    //         idData={question.id}
+    //         typeDisptach={fetchDeleteQuestionAction}
+    //       />
+    //     </div>
+    //   )}
+    //   <Link to={`/question/${question.id}`} className="button">
+    //     View Question
+    //   </Link>
+    // </article>
   )
 }
 
@@ -33,4 +61,5 @@ type AppProps = {
   question: Question
   isOwnerQuestion: boolean
 }
+
 export default QuestionComponent

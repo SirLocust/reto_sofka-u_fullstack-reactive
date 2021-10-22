@@ -33,7 +33,7 @@ export const DeleteButton: React.FC<AppProps> = ({ typeDisptach, idData }) => {
   return (
     <button
       type="button"
-      className="button right"
+      className="btn"
       onClick={() => {
         handleOpenModal()
       }}

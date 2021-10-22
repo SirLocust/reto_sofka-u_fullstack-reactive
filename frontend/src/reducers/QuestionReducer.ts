@@ -1,4 +1,5 @@
 import {
+  fetchDeleteAnswerAction,
   fetchDeleteQuestionAction,
   fetchOwnerQuestionsAction,
   fetchPostAnswerAction,
@@ -39,12 +40,26 @@ const questionReducer = createSlice({
         state.questions = action.payload
       })
 
-      .addCase(fetchPostAnswerAction.fulfilled, () => {})
-      .addCase(fetchPostQuestionAction.fulfilled, () => {})
+      .addCase(fetchPostAnswerAction.fulfilled, (state, action) => {
+        state.question = action.payload
+      })
+      .addCase(fetchPostQuestionAction.fulfilled, (state, action) => {
+        state.question = action.payload
+      })
       .addCase(fetchDeleteQuestionAction.fulfilled, (state, action) => {
         state.questions = state.questions.filter(
           (question) => question.id !== action.payload
         )
+      })
+      .addCase(fetchDeleteAnswerAction.fulfilled, (state, action) => {
+        if (state.question) {
+          state.question = {
+            ...state.question,
+            answers: state.question?.answers.filter(
+              (answer) => answer.id != action.payload
+            ),
+          }
+        }
       })
   },
 })

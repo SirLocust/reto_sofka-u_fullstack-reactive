@@ -6,23 +6,30 @@ import QuestionComponent from '../components/Question/Question'
 import Page from '../interfaces/models/Page'
 
 import { RootState } from '../store/store'
-import { fetchQuestionAction } from '../thunkActions/questionsThunk'
+import {
+  fetchPostAnswerAction,
+  fetchQuestionAction,
+} from '../thunkActions/questionsThunk'
 import { useForm } from 'react-hook-form'
-import Question from '../components/Question/Question'
+
 import Answer from '../interfaces/models/Answer'
 
 export const AnswerFormPage: React.FC<
   Page & RouteComponentProps<any> & PropsFromRedux
-> = ({ question, dispatch, match, userId, loading, history }) => {
+> = ({ question, dispatch, match, loading, userId, history }) => {
   const { id } = match.params
   useEffect(() => {
     dispatch(fetchQuestionAction(id))
   }, [])
-  const { register, handleSubmit } = useForm<Answer>()
+  const { register, handleSubmit } = useForm<Partial<Answer>>()
 
-  const onSubmit = (data: Answer) => {
-    console.log(data)
-    // dispatch(fetchPostAnswerAction(data))
+  const onSubmit = (data: Partial<Answer>) => {
+    data.userId = userId || undefined
+    data.questionId = question?.id
+
+    dispatch(fetchPostAnswerAction(data)).then(() => {
+      history.push(`/question/${question?.id}`)
+    })
   }
   return (
     // <section>
@@ -33,7 +40,9 @@ export const AnswerFormPage: React.FC<
     //     <p>Unable to display questions.</p>
     //   ) : (
     <section>
-      {question && <Question question={question} />}
+      {question && (
+        <QuestionComponent question={question} isOwnerQuestion={false} />
+      )}
       <h1>New Answer</h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>

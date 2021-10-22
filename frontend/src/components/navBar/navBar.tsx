@@ -8,19 +8,51 @@ const Navbar: React.FC<PropsFromRedux> = (props) => {
   const user = props.user.uid
 
   return (
-    <nav>
-      <section>
-        <Link to="/">Home</Link>
-        <Link to="/questions">Questions</Link>
-        {user && (
-          <>
-            <Link to="/new">New</Link>
-            <Link to="/list">List</Link>
-          </>
-        )}
-      </section>
-      <LoginButtos user={user} />
-    </nav>
+    <header className="site-header">
+      <div className="wrapper site-header__wrapper">
+        <div className="site-header__start">
+          <Link className="brand" to="/">
+            SOFANQUE
+          </Link>
+        </div>
+        <div className="site-header__end">
+          <nav className="nav">
+            <button className="nav__toggle" aria-expanded="false" type="button">
+              menu
+            </button>
+            <ul className="nav__wrapper">
+              <li className="nav__item ">
+                <Link to="/">
+                  <i className="fas fa-home"></i>
+                  <span>Home</span>
+                </Link>
+              </li>
+              <li className="nav__item">
+                <Link to="/questions">
+                  <span>Question</span>
+                </Link>
+              </li>
+              {user && (
+                <>
+                  <li className="nav__item ">
+                    <Link to="/new">
+                      <i className="fas fa-home"></i>
+                      <span>New</span>
+                    </Link>
+                  </li>
+                  <li className="nav__item">
+                    <Link to="/list">
+                      <span>List</span>
+                    </Link>
+                  </li>
+                </>
+              )}
+              <LoginButtos user={user} />
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
   )
 }
 

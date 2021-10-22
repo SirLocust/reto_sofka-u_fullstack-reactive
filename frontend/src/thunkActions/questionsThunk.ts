@@ -1,4 +1,5 @@
 import {
+  fetchDeleteAnswer,
   fetchDeleteQuestion,
   fetchOwnerQuestions,
   fetchPostAnswer,
@@ -35,9 +36,9 @@ export const fetchOwnerQuestionsAction = createAsyncThunk(
 )
 export const fetchPostAnswerAction = createAsyncThunk(
   'question/add',
-  async (answer: Answer) => {
+  async (answer: Partial<Answer>) => {
     const response = await fetchPostAnswer(answer)
-    return response.json() as unknown as Answer
+    return response.json() as unknown as Question
   }
 )
 export const fetchPostQuestionAction = createAsyncThunk(
@@ -45,13 +46,22 @@ export const fetchPostQuestionAction = createAsyncThunk(
   async (question: Partial<Question>) => {
     const response = await fetchPostQuestion(question)
 
-    return response.text() as unknown as string
+    return response.json() as unknown as Question
   }
 )
 export const fetchDeleteQuestionAction = createAsyncThunk(
   'question/delete',
   async (id: string) => {
     const response = await fetchDeleteQuestion(id)
+
+    return id
+  }
+)
+
+export const fetchDeleteAnswerAction = createAsyncThunk(
+  'question/delete/answer',
+  async (id: string) => {
+    const response = await fetchDeleteAnswer(id)
 
     return id
   }
