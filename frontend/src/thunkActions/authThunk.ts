@@ -1,5 +1,11 @@
+import { EmailAndPass } from './../interfaces/models/EmailAndPass'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { loginGoogle, signOutFirebase } from '../requestApi/AuthRequest'
+import {
+  CreateUserWithEmail,
+  loginGoogle,
+  loginWithEmail,
+  signOutFirebase,
+} from '../requestApi/AuthRequest'
 
 export const loginWhitGoogle = createAsyncThunk(
   'auth/loginWhitGoogleStatus',
@@ -8,6 +14,21 @@ export const loginWhitGoogle = createAsyncThunk(
     return response.user
   }
 )
+export const loginWhitEmailAction = createAsyncThunk(
+  'auth/loginWhitEmail',
+  async (emailAndPass: EmailAndPass) => {
+    const response = await loginWithEmail(emailAndPass)
+    return response.user
+  }
+)
+export const createUserEmailAction = createAsyncThunk(
+  'auth/loginWhitEmail',
+  async (emailAndPass: EmailAndPass) => {
+    const response = await CreateUserWithEmail(emailAndPass)
+    return response.user
+  }
+)
+
 export const signOut = createAsyncThunk('auth/signOutStatus', async () => {
   return await signOutFirebase()
 })

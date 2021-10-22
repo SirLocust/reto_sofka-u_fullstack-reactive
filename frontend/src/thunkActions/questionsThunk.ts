@@ -46,7 +46,7 @@ export const fetchPostAnswerAction = createAsyncThunk(
   }
 )
 export const fetchPostLikeFaceAction = createAsyncThunk(
-  'question/add/likes',
+  'question/add/likesd',
   async (sendLikeFace: SendLikeFace) => {
     const response = await fetchPostLikeFace(sendLikeFace)
     return response.json() as unknown as Question

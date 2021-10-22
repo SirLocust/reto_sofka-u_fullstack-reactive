@@ -1,6 +1,11 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { AuthState } from '../interfaces/states/AuthState'
-import { loginWhitGoogle, signOut } from '../thunkActions/authThunk'
+import {
+  createUserEmailAction,
+  loginWhitEmailAction,
+  loginWhitGoogle,
+  signOut,
+} from '../thunkActions/authThunk'
 
 const initialState: AuthState = {
   email: null,
@@ -22,6 +27,15 @@ const authReducer = createSlice({
         state.email = initialState.email
         state.uid = initialState.uid
       })
+      .addCase(loginWhitEmailAction.fulfilled, (state, action) => {
+        state.email = action.payload.email
+        state.uid = action.payload.uid
+      })
+      .addCase(createUserEmailAction.fulfilled, (state, action) => {
+        state.email = action.payload.email
+        state.uid = action.payload.uid
+      })
+      .addCase(loginWhitEmailAction.rejected, (state, action) => {})
   },
 })
 

@@ -5,6 +5,8 @@ import { HomePage } from '../pages/HomePage'
 import OwnerQuestionsPage from '../pages/OwnerQuestionsPage'
 import QuestionPage from '../pages/QuestionPage'
 import SingleQuestionPage from '../pages/SingleQuestionPage'
+import LoginPage from '../pages/LoginPage'
+import RegisterPage from '../pages/RegisterPage'
 
 export const routesPublic: Route[] = [
   {
@@ -43,6 +45,20 @@ export const routesPrivate: Route[] = [
     path: '/new',
     name: 'Answer ',
     component: QuestionFormPage,
+    exact: true,
+  },
+]
+export const routesLogin: Route[] = [
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginPage,
+    exact: true,
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: RegisterPage,
     exact: true,
   },
 ]

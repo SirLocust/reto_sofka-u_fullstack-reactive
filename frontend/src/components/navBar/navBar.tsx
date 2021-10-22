@@ -2,7 +2,8 @@ import React from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { RootState } from '../../store/store'
-import { LoginButtos } from '../Login/LoginButtos'
+
+import { SignOutButton } from '../Login/SignOutButton'
 
 const Navbar: React.FC<PropsFromRedux> = (props) => {
   const user = props.user.uid
@@ -28,8 +29,9 @@ const Navbar: React.FC<PropsFromRedux> = (props) => {
                 </Link>
               </li>
               <li className="nav__item">
+                <i className="fas fa-question-square"></i>
                 <Link to="/questions">
-                  <span>Question</span>
+                  <span>Questions</span>
                 </Link>
               </li>
               {user && (
@@ -47,7 +49,15 @@ const Navbar: React.FC<PropsFromRedux> = (props) => {
                   </li>
                 </>
               )}
-              <LoginButtos user={user} />
+              {!user && (
+                <li className="nav__item ">
+                  <Link to="/login">
+                    <i className="fas fa-home"></i>
+                    <span>Login</span>
+                  </Link>
+                </li>
+              )}
+              <SignOutButton user={user} />
             </ul>
           </nav>
         </div>
