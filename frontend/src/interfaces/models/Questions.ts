@@ -5,5 +5,7 @@ export default interface Question {
   userId: string
   question: string
   answers: Answer[]
+  category: string
   type: string
+  califaction: any
 }

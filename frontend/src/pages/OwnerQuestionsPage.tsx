@@ -6,14 +6,17 @@ import QuestionComponent from '../components/Question/Question'
 import Page from '../interfaces/models/Page'
 
 import { RootState } from '../store/store'
-import { fetchQuestionsAction } from '../thunkActions/questionsThunk'
+import { fetchOwnerQuestionsAction } from '../thunkActions/questionsThunk'
 
-export const QuestionPage: React.FC<
+export const OwnerQuestionPage: React.FC<
   Page & RouteComponentProps<any> & PropsFromRedux
-> = (props) => {
+> = ({ questions, userId, dispatch }) => {
   useEffect(() => {
-    props.dispatch(fetchQuestionsAction())
+    if (userId) {
+      dispatch(fetchOwnerQuestionsAction(userId))
+    }
   }, [])
+  console.log(questions)
   return (
     // <section>
     //   <h1>Questions</h1>
@@ -23,11 +26,11 @@ export const QuestionPage: React.FC<
     //     <p>Unable to display questions.</p>
     //   ) : (
     <div>
-      {props.questions.map((question) => (
+      {questions.map((question) => (
         <QuestionComponent
           key={question.id}
           question={question}
-          isOwnerQuestion={false}
+          isOwnerQuestion={true}
         />
       ))}
     </div>
@@ -40,6 +43,7 @@ export const QuestionPage: React.FC<
 const mapStateToProps = (state: RootState) => ({
   loading: state.questionReducer.loading,
   questions: state.questionReducer.questions,
+  userId: state.authReducer.uid,
   hasError: state.questionReducer.hasErrors,
 })
 
@@ -47,4 +51,4 @@ const connector = connect(mapStateToProps)
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-export default connector(QuestionPage)
+export default connector(OwnerQuestionPage)

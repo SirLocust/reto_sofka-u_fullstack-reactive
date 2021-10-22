@@ -1,19 +1,20 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { RouteComponentProps } from 'react-router-dom'
+import AnswerComponent from '../components/Answer/AnswerComponent'
 import QuestionComponent from '../components/Question/Question'
-
 import Page from '../interfaces/models/Page'
-
 import { RootState } from '../store/store'
-import { fetchQuestionsAction } from '../thunkActions/questionsThunk'
+import { fetchQuestionAction } from '../thunkActions/questionsThunk'
 
-export const QuestionPage: React.FC<
+export const SingleQuestionPage: React.FC<
   Page & RouteComponentProps<any> & PropsFromRedux
-> = (props) => {
+> = ({ question, match, dispatch }) => {
+  const { id } = match.params
   useEffect(() => {
-    props.dispatch(fetchQuestionsAction())
+    dispatch(fetchQuestionAction(id))
   }, [])
+
   return (
     // <section>
     //   <h1>Questions</h1>
@@ -23,23 +24,28 @@ export const QuestionPage: React.FC<
     //     <p>Unable to display questions.</p>
     //   ) : (
     <div>
-      {props.questions.map((question) => (
-        <QuestionComponent
-          key={question.id}
-          question={question}
-          isOwnerQuestion={false}
-        />
-      ))}
-    </div>
+      <div>
+        {question && (
+          <QuestionComponent question={question} isOwnerQuestion={false} />
+        )}
+      </div>
 
-    //   )}
-    // </section>
+      <div>
+        {question && question.answers && question.answers.length ? (
+          question.answers.map((answer) => (
+            <AnswerComponent key={answer.id} answer={answer} />
+          ))
+        ) : (
+          <p>Empty answer!</p>
+        )}
+      </div>
+    </div>
   )
 }
 
 const mapStateToProps = (state: RootState) => ({
   loading: state.questionReducer.loading,
-  questions: state.questionReducer.questions,
+  question: state.questionReducer.question,
   hasError: state.questionReducer.hasErrors,
 })
 
@@ -47,4 +53,4 @@ const connector = connect(mapStateToProps)
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-export default connector(QuestionPage)
+export default connector(SingleQuestionPage)
