@@ -1,0 +1,21 @@
+[debug] [2021-10-23T04:28:39.888Z] ----------------------------------------------------------------------
+[debug] [2021-10-23T04:28:39.897Z] Command:       C:\Program Files (x86)\nodejs\node.exe C:\Users\usuario\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2021-10-23T04:28:39.897Z] CLI Version:   7.13.1
+[debug] [2021-10-23T04:28:39.897Z] Platform:      win32
+[debug] [2021-10-23T04:28:39.898Z] Node Version:  v14.17.0
+[debug] [2021-10-23T04:28:39.899Z] Time:          Fri Oct 22 2021 23:28:39 GMT-0500 (hora estándar de Colombia)
+[debug] [2021-10-23T04:28:39.899Z] ----------------------------------------------------------------------
+[debug] [2021-10-23T04:28:39.899Z] 
+[debug] [2021-10-23T04:28:39.988Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-10-23T04:28:39.988Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\programacion\sofka\reactivePrograming\challengerFinal\frontend
+
