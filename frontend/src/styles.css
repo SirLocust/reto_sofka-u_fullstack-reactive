@@ -15,6 +15,30 @@ body {
   justify-content: space-around;
   text-align: center;
 }
+.p-10{
+  padding: 10px;
+}
+.fa {
+  padding: 20px;
+  font-size: 50px;
+  width: 50px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 20px;
+}
+
+.error{
+  text-align: center;
+  background-color: rgb(254, 120, 120);
+  font-size: 20px;
+  width: 12em;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
 
 footer{
   color: white;

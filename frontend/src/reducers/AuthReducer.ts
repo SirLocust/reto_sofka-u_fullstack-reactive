@@ -12,6 +12,7 @@ const initialState: AuthState = {
 
   uid: null,
   loading: false,
+  error: undefined,
 }
 
 const authReducer = createSlice({
@@ -36,17 +37,26 @@ const authReducer = createSlice({
         state.loading = true
       })
       .addCase(loginWhitEmailAction.fulfilled, (state, action) => {
-        state.loading = true
-
+        state.loading = false
+        state.error = undefined
         state.email = action.payload.email
         state.uid = action.payload.uid
       })
       .addCase(loginWhitEmailAction.rejected, (state, action) => {
+        state.error = action.error.message
         state.loading = false
       })
       .addCase(createUserEmailAction.fulfilled, (state, action) => {
         state.email = action.payload.email
         state.uid = action.payload.uid
+        state.loading = false
+      })
+      .addCase(createUserEmailAction.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.error.message
+      })
+      .addCase(createUserEmailAction.pending, (state, action) => {
+        state.loading = true
       })
   },
 })

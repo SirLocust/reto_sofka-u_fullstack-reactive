@@ -28,7 +28,7 @@ export const OwnerQuestionPage: React.FC<
     <div className="container flex_center">
       {questions.map((question) => {
         if (question.userId !== userId) {
-          return <></>
+          return
         }
         return (
           <QuestionComponent

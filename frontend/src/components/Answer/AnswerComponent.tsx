@@ -25,7 +25,7 @@ const AnswerComponent: React.FC<AppProps> = ({ answer, userId }) => {
           </>
         )}
         <div>
-          {userId && (
+          {userId === answer.userId && (
             <DeleteButton
               idData={answer.id}
               typeDisptach={fetchDeleteAnswerAction}

@@ -15,6 +15,7 @@ const LoginPage: React.FC<Page & RouteComponentProps<any> & PropsFromRedux> = ({
   dispatch,
   history,
   loading,
+  hasError,
 }) => {
   const { register, handleSubmit } = useForm<EmailAndPass>()
 
@@ -35,7 +36,11 @@ const LoginPage: React.FC<Page & RouteComponentProps<any> & PropsFromRedux> = ({
               className="login100-form validate-form"
             >
               <span className="login100-form-title p-b-55">Login</span>
-
+              {hasError && (
+                <div className="error login100-form-title ">
+                  <span className="error">{hasError}ppp</span>
+                </div>
+              )}
               <div
                 className="wrap-input100 validate-input m-b-16"
                 data-validate="Valid email is required: ex@abc.xyz"
@@ -100,7 +105,7 @@ const mapStateToProps = (state: RootState) => ({
   loading: state.authReducer.loading,
   questions: state.questionReducer.questions,
   userId: state.authReducer.uid,
-  hasError: state.questionReducer.hasErrors,
+  hasError: state.authReducer.error,
 })
 
 const connector = connect(mapStateToProps)
