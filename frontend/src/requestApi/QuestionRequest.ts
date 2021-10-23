@@ -3,7 +3,7 @@ import Answer from '../interfaces/models/Answer'
 import Question from '../interfaces/models/Questions'
 import { SendPositionAnswer } from '../interfaces/models/SendPositionAnswer'
 
-const URL_BASE = 'http://localhost:8081'
+const URL_BASE = ' https://agile-scrubland-98054.herokuapp.com'
 export const fetchQuestions = (): Promise<Response> => {
   return fetch(`${URL_BASE}/getAll`)
 }

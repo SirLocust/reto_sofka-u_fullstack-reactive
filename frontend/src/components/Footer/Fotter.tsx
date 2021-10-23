@@ -47,7 +47,7 @@ export const Fotter = () => {
         </div>
       </div>
       <div>
-        <p className="text-center">Copyright &copy; Devpractical.com</p>
+        <p className="text-center">Dev Sirlocust</p>
       </div>
     </footer>
   )

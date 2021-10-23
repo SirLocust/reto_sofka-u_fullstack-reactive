@@ -17,7 +17,7 @@ export const SingleQuestionPage: React.FC<
     dispatch(fetchQuestionAction(id))
   }, [])
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  console.log(question)
+
   return (
     // <section>
     //   <h1>Questions</h1>
