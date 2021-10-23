@@ -22,7 +22,7 @@ export const loginWhitEmailAction = createAsyncThunk(
   }
 )
 export const createUserEmailAction = createAsyncThunk(
-  'auth/loginWhitEmail',
+  'auth/createUserWithEmail',
   async (emailAndPass: EmailAndPass) => {
     const response = await CreateUserWithEmail(emailAndPass)
     return response.user

@@ -29,7 +29,11 @@ export const SingleQuestionPage: React.FC<
     <div className="container ">
       <div className="flex_center">
         {question && (
-          <QuestionComponent question={question} isOwnerQuestion={false} />
+          <QuestionComponent
+            isOnly={true}
+            question={question}
+            isOwnerQuestion={false}
+          />
         )}
       </div>
       {userId && (

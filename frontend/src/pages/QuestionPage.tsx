@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect, ConnectedProps } from 'react-redux'
 import { RouteComponentProps } from 'react-router-dom'
+import { LoaderLoading } from '../components/Loading/LoaderLoading'
 import QuestionComponent from '../components/Question/Question'
 
 import Page from '../interfaces/models/Page'
@@ -15,25 +16,24 @@ export const QuestionPage: React.FC<
     props.dispatch(fetchQuestionsAction())
   }, [])
   return (
-    // <section>
-    //   <h1>Questions</h1>
-    //   {props.loading ? (
-    //     <p>Loading questions...</p>
-    //   ) : props.hasError ? (
-    //     <p>Unable to display questions.</p>
-    //   ) : (
-    <div className="container flex_center">
-      {props.questions.map((question) => (
-        <QuestionComponent
-          key={question.id}
-          question={question}
-          isOwnerQuestion={false}
-        />
-      ))}
-    </div>
-
-    //   )}
-    // </section>
+    <section>
+      {props.loading ? (
+        <div>
+          <LoaderLoading />
+        </div>
+      ) : (
+        <div className="container flex_center">
+          {props.questions.map((question) => (
+            <QuestionComponent
+              isOnly={false}
+              key={question.id}
+              question={question}
+              isOwnerQuestion={false}
+            />
+          ))}
+        </div>
+      )}
+    </section>
   )
 }
 

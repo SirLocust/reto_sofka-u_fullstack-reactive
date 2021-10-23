@@ -13,10 +13,11 @@ import { useForm } from 'react-hook-form'
 
 import Question from '../interfaces/models/Questions'
 import { unwrapResult } from '@reduxjs/toolkit'
+import { LoaderLoading } from '../components/Loading/LoaderLoading'
 
 export const QuestionFormPage: React.FC<
   Page & RouteComponentProps<any> & PropsFromRedux
-> = ({ dispatch, match, userId, history }) => {
+> = ({ dispatch, match, userId, history, loading }) => {
   const { id } = match.params
   useEffect(() => {
     dispatch(fetchQuestionAction(id))
@@ -73,8 +74,9 @@ export const QuestionFormPage: React.FC<
           />
         </div>
         <button type="submit" className="button">
-          {/* {loading ? 'Saving ....' : 'Save'} */}
+          {loading ? 'Saving ....' : 'Save'}
         </button>
+        {loading && <LoaderLoading />}
       </form>
     </section>
 

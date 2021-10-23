@@ -15,7 +15,7 @@ import {
 } from '../thunkActions/questionsThunk'
 
 export const initialState: QuestionState = {
-  loading: true,
+  loading: false,
   hasErrors: false,
   questions: [],
   question: null,
@@ -43,10 +43,18 @@ const questionReducer = createSlice({
       })
 
       .addCase(fetchPostAnswerAction.fulfilled, (state, action) => {
+        state.loading = false
         state.question = action.payload
       })
+      .addCase(fetchPostAnswerAction.pending, (state) => {
+        state.loading = true
+      })
       .addCase(fetchPostQuestionAction.fulfilled, (state, action) => {
+        state.loading = true
         state.question = action.payload
+      })
+      .addCase(fetchPostQuestionAction.pending, (state, action) => {
+        state.loading = true
       })
       .addCase(fetchDeleteQuestionAction.fulfilled, (state, action) => {
         state.questions = state.questions.filter(

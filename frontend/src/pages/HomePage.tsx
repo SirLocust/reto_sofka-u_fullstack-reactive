@@ -4,7 +4,7 @@ import Page from '../interfaces/models/Page'
 
 export const HomePage: React.FC<Page & RouteComponentProps<any>> = () => {
   return (
-    <section>
+    <section className="container flex_center">
       <h1>Home</h1>
 
       <p>welcome to the question and answer app.</p>

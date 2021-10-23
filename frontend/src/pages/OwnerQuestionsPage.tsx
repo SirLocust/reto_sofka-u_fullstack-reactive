@@ -32,6 +32,7 @@ export const OwnerQuestionPage: React.FC<
         }
         return (
           <QuestionComponent
+            isOnly={false}
             key={question.id}
             question={question}
             isOwnerQuestion={true}

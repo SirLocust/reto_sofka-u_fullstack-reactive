@@ -79,20 +79,6 @@ const RegisterPage: React.FC<Page & RouteComponentProps<any> & PropsFromRedux> =
               <div className="container-login100-form-btn p-t-25">
                 <button className="login100-form-btn">Register</button>
               </div>
-
-              {/* <div className="text-center w-full p-t-42 p-b-22">
-                <span className="txt1">Or login with</span>
-              </div>
-
-              <LoginGoogleButton history={history} />
-
-              <div className="text-center w-full p-t-115">
-                <span className="txt1">No eres Usuario</span>
-
-                <Link to="/register" className="txt1 bo1 hov1">
-                  registrate
-                </Link>
-              </div> */}
             </form>
           </div>
         </div>

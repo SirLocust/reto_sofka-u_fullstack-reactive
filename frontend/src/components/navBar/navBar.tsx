@@ -5,9 +5,8 @@ import { RootState } from '../../store/store'
 
 import { SignOutButton } from '../Login/SignOutButton'
 
-const Navbar: React.FC<PropsFromRedux> = (props) => {
-  const user = props.user.uid
-
+const Navbar: React.FC<PropsFromRedux> = ({ userAut }) => {
+  const user = userAut.uid
   return (
     <header className="site-header">
       <div className="wrapper site-header__wrapper">
@@ -29,8 +28,8 @@ const Navbar: React.FC<PropsFromRedux> = (props) => {
                 </Link>
               </li>
               <li className="nav__item">
-                <i className="fas fa-question-square"></i>
                 <Link to="/questions">
+                  <i className="fas fa-question-circle"></i>
                   <span>Questions</span>
                 </Link>
               </li>
@@ -38,12 +37,13 @@ const Navbar: React.FC<PropsFromRedux> = (props) => {
                 <>
                   <li className="nav__item ">
                     <Link to="/new">
-                      <i className="fas fa-home"></i>
+                      <i className="fas fa-plus-square"></i>
                       <span>New</span>
                     </Link>
                   </li>
                   <li className="nav__item">
                     <Link to="/list">
+                      <i className="fas fa-clipboard-list"></i>
                       <span>List</span>
                     </Link>
                   </li>
@@ -52,7 +52,7 @@ const Navbar: React.FC<PropsFromRedux> = (props) => {
               {!user && (
                 <li className="nav__item ">
                   <Link to="/login">
-                    <i className="fas fa-home"></i>
+                    <i className="fas fa-user"></i>
                     <span>Login</span>
                   </Link>
                 </li>
@@ -67,7 +67,7 @@ const Navbar: React.FC<PropsFromRedux> = (props) => {
 }
 
 const mapStateToProps = (state: RootState) => ({
-  user: state.authReducer,
+  userAut: state.authReducer,
 })
 
 const connector = connect(mapStateToProps)

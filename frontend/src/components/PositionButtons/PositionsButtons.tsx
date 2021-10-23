@@ -1,14 +1,10 @@
 import React from 'react'
 import { connect, ConnectedProps } from 'react-redux'
-import { TypeCalification } from '../../enums/TypeCalification'
-import { SendLikeFace } from '../../interfaces/models/SendLikeFace'
+
 import { SendPositionAnswer } from '../../interfaces/models/SendPositionAnswer'
 
 import { RootState } from '../../store/store'
-import {
-  fetchPostLikeFaceAction,
-  fetchPostPositionAnswerAction,
-} from '../../thunkActions/questionsThunk'
+import { fetchPostPositionAnswerAction } from '../../thunkActions/questionsThunk'
 
 const PositionButtons: React.FC<PropsFromRedux & AppProps> = ({
   dispatch,

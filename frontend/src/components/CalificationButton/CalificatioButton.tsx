@@ -18,7 +18,9 @@ const CalificationButton: React.FC<PropsFromRedux> = ({
       questionId: questionId || '',
       state: type,
     }
-    dispatch(fetchPostLikeFaceAction(newSendLikeFace))
+    if (userId) {
+      dispatch(fetchPostLikeFaceAction(newSendLikeFace))
+    }
   }
   return (
     <div className="flex_center_row">

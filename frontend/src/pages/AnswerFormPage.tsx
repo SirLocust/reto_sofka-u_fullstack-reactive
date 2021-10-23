@@ -41,7 +41,11 @@ export const AnswerFormPage: React.FC<
     //   ) : (
     <section>
       {question && (
-        <QuestionComponent question={question} isOwnerQuestion={false} />
+        <QuestionComponent
+          isOnly={false}
+          question={question}
+          isOwnerQuestion={false}
+        />
       )}
       <h1>New Answer</h1>
 

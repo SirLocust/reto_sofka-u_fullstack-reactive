@@ -7,6 +7,7 @@ import { DeleteButton } from '../DeleteButton/DeleteButton'
 const QuestionComponent: React.FC<AppProps> = ({
   question,
   isOwnerQuestion,
+  isOnly,
 }) => {
   return (
     <div className="courses-container">
@@ -18,9 +19,11 @@ const QuestionComponent: React.FC<AppProps> = ({
         <div className="course-info">
           <h6>{question.type}</h6>
           <h2>{question.question}</h2>
-          <Link to={`/question/${question.id}`} className="btn">
-            View Question
-          </Link>
+          {!isOnly && (
+            <Link to={`/question/${question.id}`} className="btn">
+              View Question
+            </Link>
+          )}
         </div>
 
         {isOwnerQuestion && (
@@ -60,6 +63,7 @@ const QuestionComponent: React.FC<AppProps> = ({
 type AppProps = {
   question: Question
   isOwnerQuestion: boolean
+  isOnly: boolean
 }
 
 export default QuestionComponent

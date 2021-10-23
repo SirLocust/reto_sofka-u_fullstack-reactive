@@ -10,14 +10,18 @@ const AnswerComponent: React.FC<AppProps> = ({ answer, userId }) => {
     <aside className="answer">
       <p>{answer.answer}</p>
       <div>{answer.position}</div>
-      <div>
-        <PositionsButtons answerId={answer.id} />
-      </div>
+      {userId && (
+        <>
+          <div>
+            <PositionsButtons answerId={answer.id} />
+          </div>
 
-      <DeleteButton
-        idData={answer.id}
-        typeDisptach={fetchDeleteAnswerAction}
-      ></DeleteButton>
+          <DeleteButton
+            idData={answer.id}
+            typeDisptach={fetchDeleteAnswerAction}
+          ></DeleteButton>
+        </>
+      )}
     </aside>
   )
 }
