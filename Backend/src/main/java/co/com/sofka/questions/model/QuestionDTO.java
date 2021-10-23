@@ -4,12 +4,18 @@ package co.com.sofka.questions.model;
 
 
 import co.com.sofka.questions.enums.StateLikeFace;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import java.util.*;
 
 @Data
+@Builder
+@AllArgsConstructor
+
 public class QuestionDTO {
     private String id;
     @NotBlank
@@ -21,7 +27,7 @@ public class QuestionDTO {
     @NotBlank
     private String category;
     private List<AnswerDTO> answers;
-    private List<LikeFaceDTO> likesFace;
+
     private Map<StateLikeFace , Integer> calification;
 
 
@@ -60,17 +66,17 @@ public class QuestionDTO {
         calificationTmp.put(StateLikeFace.UNHAPPY,0);
         return  calificationTmp;
     }
-    public List<LikeFaceDTO> getLikesFace() {
-        this.likesFace = Optional.ofNullable(likesFace).orElse(new ArrayList<>());
-        return likesFace;
-    }
+//    public List<LikeFaceDTO> getLikesFace() {
+//        this.likesFace = Optional.ofNullable(likesFace).orElse(new ArrayList<>());
+//        return likesFace;
+//    }
 
     public void setAnswers(List<AnswerDTO> answers) {
         this.answers = answers;
     }
-    public void setLikesFace(List<LikeFaceDTO> likesFace) {
-        this.likesFace = likesFace;
-    }
+//    public void setLikesFace(List<LikeFaceDTO> likesFace) {
+//        this.likesFace = likesFace;
+//    }
 
 
     public String getId() {

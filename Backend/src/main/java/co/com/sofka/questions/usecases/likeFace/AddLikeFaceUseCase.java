@@ -22,29 +22,31 @@ public class AddLikeFaceUseCase implements SaveLikeState {
 
     private final MapperUtils mapperUtils;
     private final LikeFaceRepository likeFaceRepository;
+  private final GetUseCase getUseCase;
 
 
-    public AddLikeFaceUseCase(MapperUtils mapperUtils,  LikeFaceRepository likeFaceRepository) {
+  public AddLikeFaceUseCase(MapperUtils mapperUtils,  LikeFaceRepository likeFaceRepository ,GetUseCase getUseCase) {
 
 
         this.mapperUtils = mapperUtils;
         this.likeFaceRepository = likeFaceRepository;
-    }
+    this.getUseCase = getUseCase;
+  }
 
-    public Mono<LikeFaceDTO> apply(LikeFaceDTO likeFaceDTO) {
+    public Mono<QuestionDTO> apply(LikeFaceDTO likeFaceDTO) {
         Objects.requireNonNull(likeFaceDTO.getQuestionId(), "Id of the answer is required");
         return  likeFaceRepository.findFirstByQuestionIdAndUserId(likeFaceDTO.getQuestionId(), likeFaceDTO.getUserId()).map(data -> {
-                logger.info("si existe");
+
                 likeFaceDTO.setId(data.getId());
                 return likeFaceRepository.deleteById(likeFaceDTO.getId()).thenReturn(likeFaceDTO);
-                }).flatMap(data -> save(likeFaceDTO))
-                .switchIfEmpty( this.save(likeFaceDTO)    );
+                }).flatMap(data -> saveAndReturnQuestionDto(likeFaceDTO))
+                .switchIfEmpty( this.saveAndReturnQuestionDto(likeFaceDTO)    );
 
     }
 
-    private Mono<LikeFaceDTO> save(LikeFaceDTO likeFaceDTO){
+    private Mono<QuestionDTO> saveAndReturnQuestionDto(LikeFaceDTO likeFaceDTO){
         return  Mono.just(likeFaceDTO).flatMap(likeFaceTmp -> likeFaceRepository.save(mapperUtils.mapperToLikeFace(likeFaceDTO.getId()).apply(likeFaceDTO)) )
-                .flatMap(data -> Mono.just(mapperUtils.mapEntityToLikeFace().apply(data)));
+                .flatMap(data -> Mono.just(mapperUtils.mapEntityToLikeFace().apply(data))).flatMap(likeFace -> getUseCase.apply(likeFace.getQuestionId()));
 
     }
 

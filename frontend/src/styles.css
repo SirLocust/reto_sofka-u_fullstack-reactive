@@ -39,31 +39,6 @@ p {
 	margin: auto;
   /* height: ; */
 }
-/* 
-nav {
-  display: flex;
-  padding: 2rem 0;
-  background: #111;
-}
-
-nav section {
- 
-  width: 100%;
-}
-
-nav a {
-  font-weight: 700;
-  padding: 1rem 1.5rem;
-  border-radius: 4px;
-}
-
-nav a:first-of-type {
-  margin-left: -1.5rem;
-}
-
-nav a:hover {
-  background: #222;
-} */
 
 
 section {
@@ -145,6 +120,8 @@ textarea {
 	margin: 20px;
 	overflow: hidden;
 	width: 700px;
+  min-height: 300px;
+;
 }
 
 .course h6 {
@@ -163,6 +140,7 @@ textarea {
 	background-color: #2A265F;
 	color: #fff;
 	padding: 30px;
+
 	max-width: 250px;
 }
 
@@ -535,9 +513,9 @@ i{
   -moz-transition: all 0.4s;
   transition: all 0.4s;
 }
-
+casa
 .input100:focus + .focus-input100 + .symbol-input100 {
-  color: #d33f8d;
+  color: #2A265F;
   padding-left: 18px;
 }
 
@@ -591,7 +569,7 @@ i{
 }
 
 .input-checkbox100:checked + .label-checkbox100::before {
-  color: #d33f8d;
+  color: #2A265F;
 }
 
 

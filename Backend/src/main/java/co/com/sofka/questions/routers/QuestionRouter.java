@@ -7,7 +7,7 @@ import co.com.sofka.questions.model.QuestionDTO;
 import co.com.sofka.questions.usecases.AddLikeFaceUseCase;
 import co.com.sofka.questions.usecases.answer.AddAnswerUseCase;
 
-import co.com.sofka.questions.usecases.likeFace.AddPositionAnswerUseCase;
+import co.com.sofka.questions.usecases.positionanswer.AddPositionAnswerUseCase;
 import co.com.sofka.questions.usecases.question.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,7 +51,7 @@ public class QuestionRouter {
     public RouterFunction<ServerResponse> create(CreateUseCase createUseCase) {
         Function<QuestionDTO, Mono<ServerResponse>> executor = questionDTO ->  createUseCase.apply(questionDTO)
                 .flatMap(result -> ServerResponse.ok()
-                        .contentType(MediaType.TEXT_PLAIN)
+                        .contentType(MediaType.APPLICATION_JSON)
                         .bodyValue(result));
 
         return route(
@@ -115,6 +115,15 @@ public class QuestionRouter {
                 request -> ServerResponse.accepted()
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(BodyInserters.fromPublisher(deleteUseCase.apply(request.pathVariable("id")), Void.class))
+        );
+    }
+    @Bean
+    public RouterFunction<ServerResponse> deleteAnswer(DeleteAnswerUseCase deleteAnswerUseCase) {
+        return route(
+                DELETE("/delete/answer/{id}").and(accept(MediaType.APPLICATION_JSON)),
+                request -> ServerResponse.accepted()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(deleteAnswerUseCase.apply(request.pathVariable("id")), Void.class))
         );
     }
 }

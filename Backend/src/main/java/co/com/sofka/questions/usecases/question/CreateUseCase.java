@@ -1,6 +1,6 @@
 package co.com.sofka.questions.usecases.question;
 
-import co.com.sofka.questions.collections.Question;
+
 import co.com.sofka.questions.model.QuestionDTO;
 import co.com.sofka.questions.reposioties.QuestionRepository;
 import co.com.sofka.questions.usecases.MapperUtils;
@@ -21,10 +21,10 @@ public class CreateUseCase implements SaveQuestion {
     }
 
     @Override
-    public Mono<String> apply(QuestionDTO newQuestion) {
+    public Mono<QuestionDTO> apply(QuestionDTO newQuestion) {
         return questionRepository
                 .save(mapperUtils.mapperToQuestion(null).apply(newQuestion))
-                .map(Question::getId);
+                .map(question -> mapperUtils.mapEntityToQuestion().apply(question));
     }
 
 }

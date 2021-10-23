@@ -1,6 +1,7 @@
 package co.com.sofka.questions.usecases.question;
 
 import co.com.sofka.questions.collections.Answer;
+
 import co.com.sofka.questions.collections.PositionAnswer;
 import co.com.sofka.questions.model.AnswerDTO;
 import co.com.sofka.questions.model.QuestionDTO;
@@ -18,7 +19,8 @@ import org.springframework.validation.annotation.Validated;
 import reactor.core.publisher.Mono;
 
 
-import java.util.Arrays;
+
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
@@ -48,7 +50,7 @@ public class GetUseCase implements Function<String, Mono<QuestionDTO>> {
         return questionRepository.findById(id)
                 .map(mapperUtils.mapEntityToQuestion())
                 .flatMap(mapQuestionAggregate())
-                .flatMap(mapQuestionAggregateLikeFace())
+
                 .flatMap(mapQuestionAggregateCalifications());
 
     }
@@ -60,7 +62,7 @@ public class GetUseCase implements Function<String, Mono<QuestionDTO>> {
                                 .flatMap(data -> mapQuestionAggregatePositions().apply(data))
                                 .map(mapperUtils.mapEntityToAnswer())
 
-                                .collectList(),
+                                .collectSortedList(Comparator.comparing(AnswerDTO::getPosition).reversed()),
                         (question, answers) -> {
 
                             question.setAnswers(answers);
@@ -68,21 +70,7 @@ public class GetUseCase implements Function<String, Mono<QuestionDTO>> {
                         }
                 );
     }
-  private Function<QuestionDTO, Mono<QuestionDTO>> mapQuestionAggregateLikeFace() {
-    return questionDTO ->
 
-            Mono.just(questionDTO).zipWith(
-
-                    likeFaceRepository.findAllByQuestionId(questionDTO.getId())
-                            .map(mapperUtils.mapEntityToLikeFace())
-                            .collectList(),
-                    (question, likeFace) -> {
-
-                      question.setLikesFace(likeFace);
-                      return question;
-                    }
-            );
-  }
   private Function<QuestionDTO, Mono<QuestionDTO>> mapQuestionAggregateCalifications() {
     return questionDTO ->
 
@@ -102,11 +90,8 @@ public class GetUseCase implements Function<String, Mono<QuestionDTO>> {
 
   private Function<Answer, Mono<Answer>> mapQuestionAggregatePositions() {
     return answer ->  Mono.just(answer).zipWith( positionAnswerRepository.findAllByAnswerId(answer.getId()).collectList() , (answer1 , positionAnswer) -> {
-                      logger.info(Arrays.toString(positionAnswer.toArray()));
-                      var newValue = positionAnswer.stream().mapToInt(data -> {
-                        logger.info(data.toString());
-                        return  data.getValue();
-                      }).sum();
+
+                      var newValue = positionAnswer.stream().mapToInt(PositionAnswer::getValue).sum();
                         logger.info(String.valueOf(newValue));
                         answer1.setPosition(newValue);
                         return  answer1;

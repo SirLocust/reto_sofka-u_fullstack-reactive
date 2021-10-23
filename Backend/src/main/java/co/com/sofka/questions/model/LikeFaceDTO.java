@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class LikeFaceDTO {
 
   private String id;

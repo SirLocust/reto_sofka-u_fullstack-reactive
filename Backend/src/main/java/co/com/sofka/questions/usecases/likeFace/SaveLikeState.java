@@ -9,5 +9,5 @@ import javax.validation.Valid;
 
 @FunctionalInterface
 public interface SaveLikeState {
-    Mono<LikeFaceDTO> apply(@Valid LikeFaceDTO likeFaceDTO);
+    Mono<QuestionDTO> apply(@Valid LikeFaceDTO likeFaceDTO);
 }

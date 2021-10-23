@@ -2,6 +2,7 @@ package co.com.sofka.questions.model;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -9,6 +10,7 @@ import java.util.Objects;
 import java.util.Optional;
 @Data
 @AllArgsConstructor
+@Builder
 public class AnswerDTO {
     private String id;
     @NotBlank(message = "Debe existir el userId para este objeto")
@@ -32,7 +34,7 @@ public class AnswerDTO {
     }
 
     public Integer getPosition() {
-        return Optional.ofNullable(position).orElse(1);
+        return Optional.ofNullable(position).orElse(0);
     }
 
     public void setPosition(Integer position) {
