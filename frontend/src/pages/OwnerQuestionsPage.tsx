@@ -25,7 +25,7 @@ export const OwnerQuestionPage: React.FC<
     //   ) : props.hasError ? (
     //     <p>Unable to display questions.</p>
     //   ) : (
-    <div>
+    <div className="container flex_center">
       {questions.map((question) => {
         if (question.userId !== userId) {
           return <></>

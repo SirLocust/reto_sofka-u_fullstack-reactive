@@ -4,15 +4,16 @@ import { Link } from 'react-router-dom'
 import { RootState } from '../../store/store'
 
 import { SignOutButton } from '../Login/SignOutButton'
-
+import logo from '../../Asstets/logo.png'
 const Navbar: React.FC<PropsFromRedux> = ({ userAut }) => {
   const user = userAut.uid
   return (
     <header className="site-header">
       <div className="wrapper site-header__wrapper">
         <div className="site-header__start">
+          <img className="logo_img" src={logo} alt="" />
           <Link className="brand" to="/">
-            SOFANQUE
+            SOFQ&A
           </Link>
         </div>
         <div className="site-header__end">

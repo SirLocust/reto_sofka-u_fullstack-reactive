@@ -36,12 +36,14 @@ export const SingleQuestionPage: React.FC<
           />
         )}
       </div>
-      {userId && (
-        <Link to={'/answer/' + id} className="button right">
-          Reply
-        </Link>
-      )}
-      <div>{question && <CalificatioButton />}</div>
+      <div>
+        {userId && (
+          <Link to={'/answer/' + id} className="button ">
+            Reply
+          </Link>
+        )}
+      </div>
+      <div className="flex_center">{question && <CalificatioButton />}</div>
       <div>
         {question && question.answers && question.answers.length ? (
           question.answers.map((answer) => (

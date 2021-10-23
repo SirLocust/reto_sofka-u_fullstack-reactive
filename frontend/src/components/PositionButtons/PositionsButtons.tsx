@@ -24,18 +24,22 @@ const PositionButtons: React.FC<PropsFromRedux & AppProps> = ({
   return (
     <div className="flex_center_row">
       <button
+        className="button_position"
         onClick={() => {
           handlerPostLike(1)
         }}
       >
+        <i className="far fa-thumbs-up"></i>
         UP
       </button>
       <button
+        className="button_position"
         onClick={() => {
           handlerPostLike(-1)
         }}
       >
-        Down
+        DOWN
+        <i class="far fa-thumbs-down"></i>
       </button>
     </div>
   )

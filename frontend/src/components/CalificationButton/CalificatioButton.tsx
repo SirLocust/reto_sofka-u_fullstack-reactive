@@ -23,9 +23,9 @@ const CalificationButton: React.FC<PropsFromRedux> = ({
     }
   }
   return (
-    <div className="flex_center_row">
-      <div className="flex_center_row">
-        <div>
+    <div className="flex_center_row container_calification">
+      <div className="">
+        <div className="calification">
           <span
             role="img"
             aria-label="HAPPY"
@@ -41,7 +41,7 @@ const CalificationButton: React.FC<PropsFromRedux> = ({
         </div>
       </div>
       <div className="flex_center_row">
-        <div>
+        <div className="calification">
           <span
             role="img"
             aria-label="SATISFIED"
@@ -51,13 +51,13 @@ const CalificationButton: React.FC<PropsFromRedux> = ({
             aria-hidden="true"
           >
             {' '}
-            😊
+            😐
           </span>
           <p>{calification?.SATISFIED}</p>
         </div>
       </div>
       <div className="flex_center_row">
-        <div>
+        <div className="calification">
           <span
             role="img"
             aria-label="UNHAPPY"
@@ -67,7 +67,7 @@ const CalificationButton: React.FC<PropsFromRedux> = ({
             aria-hidden="true"
           >
             {' '}
-            😊
+            😥
           </span>
           <p>{calification?.UNHAPPY}</p>
         </div>

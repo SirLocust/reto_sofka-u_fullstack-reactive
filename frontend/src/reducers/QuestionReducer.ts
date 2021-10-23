@@ -50,7 +50,7 @@ const questionReducer = createSlice({
         state.loading = true
       })
       .addCase(fetchPostQuestionAction.fulfilled, (state, action) => {
-        state.loading = true
+        state.loading = false
         state.question = action.payload
       })
       .addCase(fetchPostQuestionAction.pending, (state, action) => {

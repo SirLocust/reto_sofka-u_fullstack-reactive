@@ -9,7 +9,9 @@ import {
 
 const initialState: AuthState = {
   email: null,
+
   uid: null,
+  loading: false,
 }
 
 const authReducer = createSlice({
@@ -21,21 +23,31 @@ const authReducer = createSlice({
       .addCase(loginWhitGoogle.fulfilled, (state, action) => {
         state.email = action.payload.email
         state.uid = action.payload.uid
+        state.loading = false
       })
-      .addCase(loginWhitGoogle.rejected, (state, action) => {})
+      .addCase(loginWhitGoogle.pending, (state, action) => {
+        state.loading = true
+      })
       .addCase(signOut.fulfilled, (state, action) => {
         state.email = initialState.email
         state.uid = initialState.uid
       })
+      .addCase(loginWhitEmailAction.pending, (state, action) => {
+        state.loading = true
+      })
       .addCase(loginWhitEmailAction.fulfilled, (state, action) => {
+        state.loading = true
+
         state.email = action.payload.email
         state.uid = action.payload.uid
+      })
+      .addCase(loginWhitEmailAction.rejected, (state, action) => {
+        state.loading = false
       })
       .addCase(createUserEmailAction.fulfilled, (state, action) => {
         state.email = action.payload.email
         state.uid = action.payload.uid
       })
-      .addCase(loginWhitEmailAction.rejected, (state, action) => {})
   },
 })
 

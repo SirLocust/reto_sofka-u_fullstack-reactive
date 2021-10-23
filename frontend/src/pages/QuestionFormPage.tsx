@@ -34,7 +34,7 @@ export const QuestionFormPage: React.FC<
       })
   }
   return (
-    <section>
+    <section className="container flex_center">
       <h1>New Question</h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
